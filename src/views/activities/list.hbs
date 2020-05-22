@@ -1,0 +1,31 @@
+<div class="container p-4">
+    <div class="row">
+        {{#each activities}}
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    
+                        <h3 class="card-title text-uppercase">
+                           <p>{{name}}</p> 
+                           <p>{{salary}}</p>
+                        </h3>
+                    
+                    <a class="btn btn-danger" href="/activities/delete/{{id}}">
+                        Delete Activity
+                    </a>
+                    <a class="btn btn-secondary" href="/activities/edit/{{id}}">
+                        Edit
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{else}}
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>There are not Links saved yet.</p>
+                <a href="/activity/add">Create One!</a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
