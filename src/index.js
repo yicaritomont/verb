@@ -8,6 +8,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 const { database } = require('./keys');
 
@@ -31,7 +32,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use(session({
-  secret: 'sample',
+  secret: 'faztmysqlnodemysql',
   resave: false,
   saveUninitialized: false,
   store: new MySQLStore(database)
@@ -40,6 +41,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(validator());
+app.use(fileUpload());
 
 // Global variables
 app.use((req, res, next) => {
@@ -52,10 +54,12 @@ app.use((req, res, next) => {
 // Routes
 app.use(require('./routes/index'));
 app.use('/activities', require('./routes/activities'));
+app.use('/upload',require('./routes/upload'));
 
 
 // Public
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Starting
 app.listen(app.get('port'), () => {
